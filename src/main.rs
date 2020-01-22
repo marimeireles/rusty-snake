@@ -25,6 +25,7 @@ fn main() {
         });
 
     'game: loop {
+        println!("A new loop began");
         for event in events.poll_iter()
         {
             match event {
@@ -73,10 +74,14 @@ fn main() {
                 _ => continue 'game,
             }
         }
-        snake = snake::snake_moves(&mut snake, direction);
+        //i could make a snake_update that will create a new snake
+        //only if colision happens (either with the snake or with an apple)
+        snake::snake_moves(&mut snake, direction);
         grid = snake::draw_grid_with_snake(grid, &snake);
         lib::display_frame(&mut canvas, &grid, &columns, &rows, &cell_width);
         thread::sleep(time::Duration::from_millis(800));
     }
+
+
 }
 

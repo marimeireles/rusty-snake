@@ -5,7 +5,7 @@ use sdl2::render::Canvas;
 use sdl2::EventPump;
 use sdl2::rect::Rect;
 
-use rand;
+// use rand;
 
 pub mod types;
 pub mod snake;
@@ -61,20 +61,13 @@ pub fn display_cell(
 ) {
     let cell_height = cell_width;
 
-    // let grid = &grid_data.grid;
+    let grid = &_grid_data.grid;
 
     let x = (cell_width * col) as i32;
     let y = (cell_width * row) as i32;
 
-    //For now, we want random colors, to see what happens.
-    // let cell_color = &grid[row as usize][col as usize];
-    // let drawing_color = Color::RGB(cell_color.red, cell_color.green, cell_color.blue);
-
-    let red: u8 = rand::random();
-    let green: u8 = rand::random();
-    let blue: u8 = rand::random();
-
-    let drawing_color = Color::RGB(red, green, blue);
+    let cell_color = &grid[row as usize][col as usize];
+    let drawing_color = Color::RGB(cell_color.red, cell_color.green, cell_color.blue);
 
     renderer.set_draw_color(drawing_color);
     let square = renderer.fill_rect(Rect::new(x, y, *cell_width, *cell_height));
@@ -91,9 +84,9 @@ pub fn grid_init(nx_cells: u32, ny_cells: u32) -> Grid {
         grid_vector.push(Vec::new());
         for _column in 0..nx_cells {
             grid_vector[row as usize].push(Cell {
-                red: 35_u8,
-                green: 15_u8,
-                blue: 13_u8,
+                red: 0_u8,
+                green: 0_u8,
+                blue: 0_u8,
             });
         }
     }
